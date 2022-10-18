@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import FileBase from 'react-file-base64';
-import { Attachment } from '@carbon/icons-react';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../../actions/posts';
 
@@ -49,7 +47,7 @@ export default function Form(){
 
 
     return(
-        <div className="flex w-full flex-wrap justify-center mt-12 p-4 border-2 border-slate-100 rounded-xl " >
+        <div className="form-container flex w-full flex-wrap sticky top-4 justify-center mt-12 p-4 border-2 border-slate-200 rounded-xl " >
             <form 
                 autoComplete="off" 
                 noValidate 
@@ -76,13 +74,13 @@ export default function Form(){
                     className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 rounded"   
                 />
 
-                <input 
+                <textarea 
                     type="text" 
                     name="message" 
                     placeholder="Message" 
                     onChange={(e) => setPostData({ ...postData, message: e.target.value })}
                     value={postData.message}
-                    className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 rounded"   
+                    className="w-full focus:outline-none h-[120px] p-2 my-1 border border-slate-200 focus:border-slate-400 rounded"   
                 />
 
                 <input 
@@ -108,20 +106,24 @@ export default function Form(){
                 
 
                 <div className="flex items-start">
-                    <input 
-                        type="file" 
-                        multiple = {false}
-                        onChange={(e) => {
-                            uploadImage(e);
-                        }} 
-                        className="text-sm text-grey-500 my-1
-                        file:mr-5 file:py-2 file:px-6
-                        file:rounded-full file:border-0
-                        file:text-sm file:font-medium
-                        file:bg-slate-100 file:text-slate-500
-                        hover:file:cursor-pointer hover:file:bg-sky-100
-                        hover:file:text-sky-600 transition-all"
-                    />
+                    <label type="file" >
+                        <span className="material-icons-outlined text-slate-500 hover:text-sky-600 hover:scale-105 transition-all hover:cursor-pointer hidden" >attach_file</span>
+                        <input 
+                            type="file" 
+                            multiple = {false}
+                            onChange={(e) => {
+                                uploadImage(e);
+                            }} 
+                            className="text-sm text-grey-500 my-1
+                            file:mr-5 file:py-2 file:px-6
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-medium
+                            file:bg-slate-100 file:text-slate-500
+                            hover:file:cursor-pointer hover:file:bg-sky-100
+                            hover:file:text-sky-600 transition-all"
+                        />
+                    </label>
+                    
                 </div>
                 
 
@@ -142,15 +144,15 @@ export default function Form(){
 
                 <button 
                     type="submit" 
-                    className="w-full h-10 my-1 rounded border border-slate-400 text-white font-medium text-xl bg-gradient-to-r from-sky-300 to-purple-300 hover:from-sky-400 hover:to-purple-400 hover:border-slate-600 transition-all " 
+                    className="w-full h-10 my-1 rounded border border-slate-400 text-white font-medium text-xl bg-gradient-to-r from-sky-400 to-purple-400 hover:from-sky-500 hover:to-purple-500 hover:border-slate-600 transition-all " 
                 >
                     Submit
                 </button>
                 <button 
                      onClick={clear}
-                    className="w-full h-10 my-1 rounded border border-slate-400 font-medium text-xl text-slate-400 hover:text-slate-500 hover:bg-slate-100 hover:broder-slate-500 transition-all" 
+                    className="w-full h-10 my-1 rounded border bg-slate-100 border-slate-400 font-medium text-xl text-slate-500 hover:text-slate-600 hover:bg-slate-200 hover:border-slate-600 transition-all" 
                 >
-                    Fuck!
+                    Clear
                 </button>
 
             </form>
