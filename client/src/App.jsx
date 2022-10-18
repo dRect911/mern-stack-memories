@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import './App.css';
@@ -9,10 +9,11 @@ import memories from './images/memories.png';
 
 function App() {
   const dispatch = useDispatch();
+  const [currentId, setCurrentId] = useState(null);
 
   useEffect(() => {
     dispatch(getPosts());    
-  }, [dispatch]);
+  }, [currentId, dispatch]);
 
   return (
     <div className="App">
@@ -25,10 +26,10 @@ function App() {
 
       <div className="w-full grid grid-cols-12 items-stretch justify-between ">
         <div className=" col-span-12 sm:col-span-8 lg:col-span-9 ">
-          <Posts />
+          <Posts setCurrentId={setCurrentId} />
         </div>
-        <div className="col-span-12 sm:col-span-4 lg:col-span-3 mx-4 ">
-          <Form />
+        <div className="col-span-12 sm:col-span-4 lg:col-span-3 mx-4 mt-4">
+          <Form currentId={currentId} setCurrentId={setCurrentId} />
         </div>
       </div>
     </div>

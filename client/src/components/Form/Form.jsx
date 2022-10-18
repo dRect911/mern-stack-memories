@@ -1,20 +1,53 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createPost } from '../../actions/posts';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPost, updatePost } from '../../actions/posts';
 
-export default function Form(){
+export default function Form({ currentId, setCurrentId }){
+    const post = useSelector((state) => currentId ? state.posts.find((post) => post._id === currentId) : null );
     const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
-    // const [baseImage, setBaseImage] = useState("bruh");
     const dispatch = useDispatch();
+
+    
+
+    useEffect(() => {
+        if (post) {
+            console.log(`currently updating post ${post._id}`);
+            setPostData(post);
+        }
+    }, [post]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(createPost(postData))
-
+        if(currentId){
+            dispatch(updatePost(currentId, postData));
+        } else {
+            dispatch(createPost(postData));
+        }
+        clear();
+        // e.target.value = null;
     }
 
     const clear = () => {
         // console.log(postData);
+        setCurrentId(null);
+        setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+        console.log('cleared the memory form');
+    }
+
+    // straight from stackoverflow lol
+    const clearInputFile = (f) => {
+        if(f.value){
+            try{
+                f.value = ''; //for IE11, latest Chrome/Firefox/Opera...
+            }catch(err){ }
+            if(f.value){ //for IE5 ~ IE10
+                var form = document.createElement('form'),
+                    parentNode = f.parentNode, ref = f.nextSibling;
+                form.appendChild(f);
+                form.reset();
+                parentNode.insertBefore(f,ref);
+            }
+        }
     }
 
     // own base64 file upload
@@ -22,11 +55,8 @@ export default function Form(){
         e.preventDefault();
         const file = e.target.files[0];
         const base64 = await convertBase64(file);
-        console.log(`logged base64 ${base64}`);
         setPostData({ ...postData, selectedFile: base64 });
     }
-
-    
 
     // base64 converter
     const convertBase64 = (file) => {
@@ -45,21 +75,20 @@ export default function Form(){
         });
     }
 
-
     return(
-        <div className="form-container flex w-full flex-wrap sticky top-4 justify-center mt-12 p-4 border-2 border-slate-200 rounded-xl " >
+        <div className="form-container flex w-full flex-wrap sticky top-4 justify-center p-4 border-2 border-slate-200 rounded-xl text-ellipsis " >
             <form 
-                autoComplete="off" 
-                noValidate 
+                autoComplete="off"
                 onSubmit={handleSubmit} 
                 className="w-full"
             >
-                <h6 className="text-2xl text-slate-500 font-medium my-1 ">Create a new memory</h6>
+                <h6 className="text-2xl text-slate-500 font-medium my-1 ">{ currentId ? 'Editing a memory' : 'Create a memory'}</h6>
 
                 <input 
                     type="text" 
                     name="creator" 
                     placeholder="Creator" 
+                    required
                     onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
                     value={postData.creator}
                     className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 rounded"   
@@ -69,6 +98,7 @@ export default function Form(){
                     type="text" 
                     name="title" 
                     placeholder="Title" 
+                    required
                     onChange={(e) => setPostData({ ...postData, title: e.target.value })}
                     value={postData.title}
                     className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 rounded"   
@@ -103,53 +133,32 @@ export default function Form(){
                     }}
                     className="w-full focus:outline-none h-10 px-2 my-1 mt-8 border placeholder-yellow-400 bg-gray-800 caret-yellow-500 animate-bounce text-yellow-500 border-yellow-400 focus:border-yellow-500 rounded"   
                 /> */}
-                
 
-                <div className="flex items-start">
+                <div className="flex items-start text-ellipsis">
                     <label type="file" >
                         <span className="material-icons-outlined text-slate-500 hover:text-sky-600 hover:scale-105 transition-all hover:cursor-pointer hidden" >attach_file</span>
                         <input 
                             type="file" 
                             multiple = {false}
+                            required
                             onChange={(e) => {
                                 uploadImage(e);
                             }} 
-                            className="text-sm text-grey-500 my-1
-                            file:mr-5 file:py-2 file:px-6
-                            file:rounded-full file:border-0
-                            file:text-sm file:font-medium
-                            file:bg-slate-100 file:text-slate-500
-                            hover:file:cursor-pointer hover:file:bg-sky-100
-                            hover:file:text-sky-600 transition-all"
+                            className="text-sm text-grey-500 my-1 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-slate-100 file:text-slate-500 hover:file:cursor-pointer hover:file:bg-sky-100 hover:file:text-sky-600 transition-all"
                         />
                     </label>
-                    
                 </div>
+
+                { postData.selectedFile ? <img src={postData.selectedFile} className="h-36 rounded my-1" /> : null }
                 
-
-                {/* <div className="flex items-start text-sm file:mr-5 file:py-2 file:px-6
-                        file:rounded-full file:border-0
-                        file:text-sm file:font-medium
-                        file:bg-slate-100 file:text-slate-500
-                        hover:file:cursor-pointer hover:file:bg-sky-100
-                        hover:file:text-sky-600 transition-all" id="file-input">
-                    <FileBase 
-                        type="file" 
-                        multiple={false} 
-                        onDone={({base64}) => setPostData({ ...postData, selectedFile: base64})}
-                        className="hidden"
-                    />
-                </div> */}
-
-
                 <button 
                     type="submit" 
                     className="w-full h-10 my-1 rounded border border-slate-400 text-white font-medium text-xl bg-gradient-to-r from-sky-400 to-purple-400 hover:from-sky-500 hover:to-purple-500 hover:border-slate-600 transition-all " 
                 >
-                    Submit
+                    { currentId ? 'Update' : 'Create'}
                 </button>
                 <button 
-                     onClick={clear}
+                    onClick={clear}
                     className="w-full h-10 my-1 rounded border bg-slate-100 border-slate-400 font-medium text-xl text-slate-500 hover:text-slate-600 hover:bg-slate-200 hover:border-slate-600 transition-all" 
                 >
                     Clear

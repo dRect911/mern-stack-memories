@@ -1,9 +1,9 @@
 import moment from 'moment';
 
-export default function Post({post}){
-    console.log(post);
+export default function Post({ post, setCurrentId }){
+    // console.log(post);
     return(
-        <div className="border border-slate-200 flex flex-col w-[400px]  bg-white h-[450px] rounded-xl relative drop-shadow-md">
+        <div key={post._id} className="border border-slate-200 flex flex-col w-[400px]  bg-white h-[450px] rounded-xl relative drop-shadow-md">
             <img className="h-[240px] rounded-t-xl" src={post.selectedFile}></img>
             {/* darker overlay */}
             <div className="absolute top-0 left-0 w-full px-4 pt-4 h-[240px] rounded-t-xl bg-black/25 flex justify-between">
@@ -11,7 +11,15 @@ export default function Post({post}){
                     <h2 className="text-white text-2xl font-medium" >{post.creator}</h2>
                     <h5 className="text-white" >{moment(post.createdAt).fromNow()}</h5>
                 </div>
-                <span class="material-icons-outlined text-3xl text-white hover:cursor-pointer">more_horiz</span>
+                <span 
+                    className="material-icons-outlined text-3xl text-white hover:cursor-pointer" 
+                    onClick={() => {
+                        console.log(post._id)
+                        setCurrentId(post._id);
+                    }} 
+                >
+                    more_horiz
+                </span>
             </div>
             <div className="bg-white min-h-24 pb-4 ">
                 {/* tags */}

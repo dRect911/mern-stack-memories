@@ -5,7 +5,7 @@ import SkeletonPost from "../SkeletonPost";
 import dummies from "../../dump/dummies"
 
 
-export default function Posts(){
+export default function Posts({ setCurrentId }){
     const posts = useSelector((state) => state.posts);
 
     const dummy = {
@@ -33,8 +33,8 @@ export default function Posts(){
             },
     }
 
-    console.log(`logged posts from Posts.jsx`);
-    console.log(posts)
+    /* console.log(`logged posts from Posts.jsx`);
+    console.log(posts) */
 
     if (!posts.length){
         return(
@@ -52,10 +52,10 @@ export default function Posts(){
     }else{
         return(
             <div className="post--feed  w-full border-r border-slate-400 flex flex-wrap justify-around">
-                {dummies.map((post) => {
+                {posts.map((post) => {
                     return(
                         <div key={post._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 mx-2 my-4" >
-                            <Post post={post} />
+                            <Post post={post} setCurrentId={setCurrentId} />
                         </div>
                     );
                 })}

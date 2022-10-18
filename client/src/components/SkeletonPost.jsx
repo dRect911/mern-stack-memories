@@ -11,7 +11,7 @@ export default function SkeletonPost(){
                     <h2 className="text-gray-300 bg-gray-300 rounded animate-pulse text-2xl font-medium px-24 py-4 " > </h2>
                     <h5 className="text-gray-300 bg-gray-300 rounded animate-pulse mt-1 px-20 py-[12px]" > </h5>
                 </div>
-                <span class="material-icons-outlined text-3xl text-gray-200 hover:cursor-pointer">more_horiz</span>
+                <span className="material-icons-outlined text-3xl text-gray-200 hover:cursor-pointer">more_horiz</span>
             </div>
             <div className="bg-white min-h-24 pb-4 px-4 ">
                 {/* tags */}
