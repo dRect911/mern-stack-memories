@@ -76,13 +76,13 @@ export default function Form({ currentId, setCurrentId }){
     }
 
     return(
-        <div className="form-container flex w-full flex-wrap sticky top-4 justify-center p-4 border-2 border-slate-200 rounded-xl text-ellipsis " >
+        <div className="form-container flex w-full flex-wrap sticky top-4 justify-center p-4 border-2 border-slate-200 dark:border-slate-700 rounded-xl text-ellipsis " >
             <form 
                 autoComplete="off"
                 onSubmit={handleSubmit} 
                 className="w-full"
             >
-                <h6 className="text-2xl text-slate-500 font-medium my-1 ">{ currentId ? 'Editing a memory' : 'Create a memory'}</h6>
+                <h6 className="text-2xl text-slate-500 dark:text-slate-300 font-medium my-1 ">{ currentId ? 'Editing a memory' : 'Create a memory'}</h6>
 
                 <input 
                     type="text" 
@@ -91,7 +91,7 @@ export default function Form({ currentId, setCurrentId }){
                     required
                     onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
                     value={postData.creator}
-                    className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 rounded"   
+                    className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 dark:bg-gray-700 dark:border-slate-600 dark:focus:border-slate-500 dark:text-slate-200 dark:caret-slate-300 rounded"   
                 />
 
                 <input 
@@ -101,7 +101,7 @@ export default function Form({ currentId, setCurrentId }){
                     required
                     onChange={(e) => setPostData({ ...postData, title: e.target.value })}
                     value={postData.title}
-                    className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 rounded"   
+                    className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 dark:bg-gray-700 dark:border-slate-600 dark:focus:border-slate-500 dark:text-slate-200 dark:caret-slate-300 rounded"   
                 />
 
                 <textarea 
@@ -110,7 +110,7 @@ export default function Form({ currentId, setCurrentId }){
                     placeholder="Message" 
                     onChange={(e) => setPostData({ ...postData, message: e.target.value })}
                     value={postData.message}
-                    className="w-full focus:outline-none h-[120px] p-2 my-1 border border-slate-200 focus:border-slate-400 rounded"   
+                    className="w-full focus:outline-none h-[120px] p-2 my-1 border border-slate-200 focus:border-slate-400 dark:bg-gray-700 dark:border-slate-600 dark:focus:border-slate-500 dark:text-slate-200 dark:caret-slate-300 rounded"   
                 />
 
                 <input 
@@ -119,7 +119,7 @@ export default function Form({ currentId, setCurrentId }){
                     placeholder="Tags" 
                     onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
                     value={postData.tags}
-                    className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 rounded"   
+                    className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 dark:bg-gray-700 dark:border-slate-600 dark:focus:border-slate-500 dark:text-slate-200 dark:caret-slate-300 rounded"   
                 />
 
                 {/* test logger field */}
@@ -140,11 +140,11 @@ export default function Form({ currentId, setCurrentId }){
                         <input 
                             type="file" 
                             multiple = {false}
-                            required
+                            required={ currentId ? false : true }
                             onChange={(e) => {
                                 uploadImage(e);
                             }} 
-                            className="text-sm text-grey-500 my-1 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-slate-100 file:text-slate-500 hover:file:cursor-pointer hover:file:bg-sky-100 hover:file:text-sky-600 transition-all"
+                            className="text-sm text-grey-500 my-1 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-slate-100 dark:file:bg-slate-700 file:text-slate-500 hover:file:cursor-pointer hover:file:bg-sky-100 dark:hover:file:bg-slate-600 dark:hover:file:text-sky-400 hover:file:text-sky-700 dark:text-slate-300 transition-all"
                         />
                     </label>
                 </div>
@@ -153,13 +153,15 @@ export default function Form({ currentId, setCurrentId }){
                 
                 <button 
                     type="submit" 
-                    className="w-full h-10 my-1 rounded border border-slate-400 text-white font-medium text-xl bg-gradient-to-r from-sky-400 to-purple-400 hover:from-sky-500 hover:to-purple-500 hover:border-slate-600 transition-all " 
+                    className="w-full h-10 my-1 rounded border border-slate-400 text-white font-medium text-xl bg-gradient-to-r from-sky-400 to-purple-400 hover:from-sky-500 hover:to-purple-500 hover:border-slate-600 transition-all 
+                    dark:from-slate-700 dark:to-slate-700 dark:text-slate-200 dark:border-slate-600 dark:hover:border-slate-400  dark:hover:from-sky-600 dark:hover:to-purple-600 " 
                 >
                     { currentId ? 'Update' : 'Create'}
                 </button>
                 <button 
                     onClick={clear}
-                    className="w-full h-10 my-1 rounded border bg-slate-100 border-slate-400 font-medium text-xl text-slate-500 hover:text-slate-600 hover:bg-slate-200 hover:border-slate-600 transition-all" 
+                    className="w-full h-10 my-1 rounded border bg-slate-100 border-slate-400 font-medium text-xl text-slate-500 hover:text-slate-600 hover:bg-slate-200 hover:border-slate-600 transition-all
+                    dark:bg-slate-600 dark:border-slate-500 dark:text-slate-400 dark:hover:bg-slate-500 dark:hover:text-slate-300 dark:hover:border-slate-300 " 
                 >
                     Clear
                 </button>

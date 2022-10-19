@@ -5,7 +5,7 @@ import SkeletonPost from "../SkeletonPost";
 import dummies from "../../dump/dummies"
 
 
-export default function Posts({ setCurrentId }){
+export default function Posts({ setCurrentId, dark }){
     const posts = useSelector((state) => state.posts);
 
     const dummy = {
@@ -51,41 +51,14 @@ export default function Posts({ setCurrentId }){
         );
     }else{
         return(
-            <div className="post--feed  w-full border-r border-slate-400 flex flex-wrap justify-around">
+            <div className={` w-full border-r border-slate-400 dark:border-slate-600 flex flex-wrap justify-around ${ dark === true ? 'dark--post--feed' : 'post--feed' }`}>
                 {posts.map((post) => {
                     return(
-                        <div key={post._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 mx-2 my-4" >
+                        <div key={post._id} className="col-span-12 row-span-2 min-w-[280px] sm:col-span-6 sm:row-span-1 mx-2 my-4" >
                             <Post post={post} setCurrentId={setCurrentId} />
                         </div>
                     );
-                })}
-
-                {/* <div key={dummy._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 mx-2 my-4" >
-                    <Post post={dummy} />
-                </div>
-                <div key={dummy._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 mx-2 my-4" >
-                    <Post post={dummy} />
-                </div>
-                <div key={dummy._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 m-2" >
-                    <Post post={dummy} />
-                </div>
-                <div key={dummy._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 m-2" >
-                    <Post post={dummy} />
-                </div>
-                <div key={dummy._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 m-2" >
-                    <Post post={dummy} />
-                </div>
-                <div key={dummy._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 m-2" >
-                    <Post post={dummy} />
-                </div>
-                <div key={dummy._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 m-2" >
-                    <Post post={dummy} />
-                </div>
-                <div key={dummy._id} className="col-span-12 row-span-2 sm:col-span-6 sm:row-span-1 m-2" >
-                    <Post post={dummy} />
-                </div> */}
-                
-                
+                })}   
             </div>
         )
     }

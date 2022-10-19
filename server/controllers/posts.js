@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import PostMessage from "../models/postMessages.js";
 
+// get all posts request
 export const getPosts = async (req, res) => {
     try {
         const postMessages = await PostMessage.find();
@@ -10,6 +11,7 @@ export const getPosts = async (req, res) => {
     }
 }
 
+// create post request
 export const createPost = async (req, res) => {
     const post = req.body;
     const newPost = PostMessage(post);
@@ -17,11 +19,13 @@ export const createPost = async (req, res) => {
     try {
         await newPost.save();
         res.status(201).json(newPost);
+        console.log('created a new post');
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
 }
 
+// post update request
 export const updatePost = async (req, res) => {
     const { id: _id } = req.params;
     const post = req.body;
@@ -38,4 +42,36 @@ export const updatePost = async (req, res) => {
     }
 }
 
+// post delete request
+export const deletePost = async (req, res) => {
+    const { id: _id } = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id');
+
+    try {
+        await PostMessage.findByIdAndRemove(_id);
+        console.log(`deleted post on id:${_id}`);
+        res.json({ message: "Post successfully deleted"});
+    } catch (error) {
+        console.log('error while deleting');
+        res.json({ message: error.message });
+    }
+}
+
+// Post like handler
+export const likePost = async (req, res) => {
+    const { id: _id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id');
+
+    try {
+        // request here
+        const post = await PostMessage.findById(_id);
+        const updatedPost = await PostMessage.findByIdAndUpdate(_id, { likeCount: post.likeCount + 1 }, { new: true });
+        res.json(updatedPost);
+        console.log(updatedPost);
+        console.log(`liked post on id:${_id}`);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
