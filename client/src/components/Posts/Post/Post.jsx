@@ -54,5 +54,6 @@ export default function Post({ post, setCurrentId }){
             
         </div>
     )
+    // just for the commit
 }
 
