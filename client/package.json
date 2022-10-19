@@ -16,8 +16,10 @@
     "react-dom": "^18.0.0",
     "react-file-base64": "^1.0.3",
     "react-redux": "^8.0.4",
+    "react-toggle-dark-mode": "^1.1.0",
     "redux": "^4.2.0",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "tw-elements": "^1.0.0-alpha12"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",
