@@ -46,6 +46,8 @@ export default function Posts({ setCurrentId, dark }){
                 <SkeletonPost />
                 <SkeletonPost />
                 <SkeletonPost />
+                <SkeletonPost />
+                <SkeletonPost />
                 {/* <span className="material-icons-outlined text-6xl animate-spin text-slate-600">change_circle</span> */}
             </div>   
         );

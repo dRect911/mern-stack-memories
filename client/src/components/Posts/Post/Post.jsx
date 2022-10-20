@@ -6,7 +6,6 @@ import { deletePost, likePost } from '../../../actions/posts';
 export default function Post({ post, setCurrentId }){
     const dispatch = useDispatch();
 
-    // console.log(post);
     return(
         <div key={post._id} className="w-[300px] h-[400px] sm:w-[280px] sm:h-[400px] md:w-[400px] md:h-[480px] lg:w-[320px] lg:h-[420px] lg xl:h-[480px] xl:w-[410px] border border-slate-200 dark:border-slate-600 flex flex-col bg-white dark:bg-gray-800 rounded-xl relative drop-shadow-md transition-all ">
             <img className="h-[240px] sm:h-[200px] md:h-[280px] lg:h-[240px] xl:h-[280px] rounded-t-xl dark:border-b dark:border-slate-600" src={post.selectedFile}></img>

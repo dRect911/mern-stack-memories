@@ -31,7 +31,7 @@ export default function Form({ currentId, setCurrentId }){
         // console.log(postData);
         setCurrentId(null);
         setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
-        console.log('cleared the memory form');
+        console.log('cleared the form');
     }
 
     // straight from stackoverflow lol
@@ -116,8 +116,8 @@ export default function Form({ currentId, setCurrentId }){
                 <input 
                     type="text" 
                     name="tags" 
-                    placeholder="Tags" 
-                    onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+                    placeholder="Tags (put ',' between each tag)" 
+                    onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',').trim() })}
                     value={postData.tags}
                     className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 dark:bg-gray-700 dark:border-slate-600 dark:focus:border-slate-500 dark:text-slate-200 dark:caret-slate-300 rounded"   
                 />
