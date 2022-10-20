@@ -7,6 +7,7 @@ export const getPosts = async (req, res) => {
         const postMessages = await PostMessage.find();
         res.status(201).json(postMessages);
     } catch (error) {
+        console.log('error while getting posts');
         res.status(409).json({ message: error.message });
     }
 }
@@ -21,6 +22,7 @@ export const createPost = async (req, res) => {
         res.status(201).json(newPost);
         console.log('created a new post');
     } catch (error) {
+        console.log('error while creating a new post');
         res.status(409).json({ message: error.message });
     }
 }
@@ -37,7 +39,7 @@ export const updatePost = async (req, res) => {
         res.json(updatedPost);
         console.log(`updated post on id:${_id}`);
     } catch (error) {
-        console.log('error while updating');
+        console.log('error while updating a post');
         res.json({ message: error.message });
     }
 }
@@ -53,7 +55,7 @@ export const deletePost = async (req, res) => {
         console.log(`deleted post on id:${_id}`);
         res.json({ message: "Post successfully deleted"});
     } catch (error) {
-        console.log('error while deleting');
+        console.log('error while deleting a post');
         res.json({ message: error.message });
     }
 }
@@ -72,6 +74,7 @@ export const likePost = async (req, res) => {
         console.log(updatedPost);
         console.log(`liked post on id:${_id}`);
     } catch (error) {
+        console.log('error while liking a post');
         res.json({ message: error.message });
     }
 }
