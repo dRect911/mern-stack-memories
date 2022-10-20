@@ -13,7 +13,7 @@ function App() {
   const dispatch = useDispatch();
   const [currentId, setCurrentId] = useState(null);
 
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState( localStorage.theme === 'false' ? true : false );
   
 
   useEffect(() => {
@@ -33,11 +33,11 @@ function App() {
         </div>
       </nav>
 
-      <div className="w-full grid grid-cols-12 items-stretch justify-between  dark:bg-gray-800">
+      <div className="w-full flex flex-col-reverse sm:flex-none sm:grid sm:grid-cols-12 items-stretch justify-between dark:bg-gray-800">
         <div className=" col-span-12 sm:col-span-6 md:col-span-7 lg:col-span-8 xl:col-span-9  ">
           <Posts dark={dark} setCurrentId={setCurrentId} />
         </div>
-        <div className="col-span-12 sm:col-span-6 md:col-span-5 lg:col-span-4 xl:col-span-3 mx-4 mt-4 ">
+        <div className="col-span-12 sm:col-span-6 md:col-span-5 lg:col-span-4 xl:col-span-3 mx-4 my-4 ">
           <Form currentId={currentId} setCurrentId={setCurrentId} />
         </div>
       </div>
