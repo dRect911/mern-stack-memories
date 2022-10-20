@@ -117,7 +117,7 @@ export default function Form({ currentId, setCurrentId }){
                     type="text" 
                     name="tags" 
                     placeholder="Tags (put ',' between each tag)" 
-                    onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',').trim() })}
+                    onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
                     value={postData.tags}
                     className="w-full focus:outline-none h-10 px-2 my-1 border border-slate-200 focus:border-slate-400 dark:bg-gray-700 dark:border-slate-600 dark:focus:border-slate-500 dark:text-slate-200 dark:caret-slate-300 rounded"   
                 />

@@ -31,7 +31,7 @@ export default function Post({ post, setCurrentId }){
                 <div className="tags flex flex-wrap p-2" >
                     {post.tags.map((tag) => {
                         return(
-                            <h6 key={tag} className="rounded-full text-[10px] bg-lime-200 text-lime-700 dark:bg-pink-500 dark:text-pink-900 m-1 px-1 font-bold " >#{tag}</h6>
+                            <h6 key={tag} className="rounded-full text-[10px] bg-lime-200 text-lime-700 dark:bg-pink-500 dark:text-pink-900 m-1 px-1 font-bold " >#{tag.trim()}</h6>
                         );
                     })}
                 </div>
